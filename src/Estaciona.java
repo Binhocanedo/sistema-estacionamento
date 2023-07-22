@@ -50,7 +50,7 @@ public class Estaciona implements Estacionamento{
 
         boolean encontrado = false;
 
-        ArrayList<RegistroEntrada> removerVeiculos = new ArrayList<>();
+        HashMap<String, RegistroEntrada> removerVeiculos = new HashMap<>();
         LocalTime horaSaida = registrarHoraAtual();
 
         for(RegistroEntrada registro : registrosEntrada){
@@ -65,7 +65,7 @@ public class Estaciona implements Estacionamento{
                 System.out.print("Deseja remover este véiculo ? [SIM/NÃO]");
                 String removerVeiculo = teclado.nextLine().toUpperCase();
                 if(removerVeiculo.equals("SIM")){
-                    removerVeiculos.add(registro);
+                    removerVeiculos.put(registro.veiculo.placa(), registro);
                 }
                 break;
             }
@@ -73,7 +73,7 @@ public class Estaciona implements Estacionamento{
         if(!encontrado){
             System.out.println("VEÍCULO NÃO ENCONTRADO");
         }
-        for(RegistroEntrada veiculoRemover : removerVeiculos){
+        for(RegistroEntrada veiculoRemover : removerVeiculos.values()){
             registrosEntrada.remove(veiculoRemover);
         }
         this.numeroDeVagas ++;
@@ -83,4 +83,5 @@ public class Estaciona implements Estacionamento{
     public int vagasDisponiveis(){
         return numeroDeVagas;
     }
+
 }
