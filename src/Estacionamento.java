@@ -6,22 +6,23 @@ import java.util.*;
 
 
 public class Estacionamento {
-    private int numeroDeVagas = 10;
+    private int   numeroDeVagas = 10;
     private final float valorPorHora = 2.5F;
     private final ArrayList<RegistroEntrada> registrosEntrada;
+
 
     public Estacionamento(){
         registrosEntrada = new ArrayList<>();
     }
 
     public void registrarEntrada(Veiculo veiculo){
-        LocalTime horaEntrada1 = registrarDeHoraEntrada();
-        RegistroEntrada registro = new RegistroEntrada(veiculo, horaEntrada1);
+        LocalTime horaEntrada = registrarHoraAtual();
+        RegistroEntrada registro = new RegistroEntrada(veiculo, horaEntrada);
         registrosEntrada.add(registro);
         this.numeroDeVagas--;
     }
 
-    public LocalTime registrarDeHoraEntrada(){
+    public LocalTime registrarHoraAtual(){
         return LocalTime.parse(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
     }
 
@@ -32,8 +33,8 @@ public class Estacionamento {
     public void mostrarVeiculosEstacionados(){
         System.out.println("   VEÍCULOS ESTACIONADOS   ");
         for(RegistroEntrada carro : registrosEntrada){
-            System.out.println("MODELO:          " + carro.veiculo.getModelo());
-            System.out.println("PLACA:           " + carro.veiculo.getPlaca());
+            System.out.println("MODELO:          " + carro.veiculo.modelo());
+            System.out.println("PLACA:           " + carro.veiculo.placa());
             System.out.println("HORA DE ENTRADA: " + carro.horaEntrada + "\n");
         }
     }
@@ -46,14 +47,16 @@ public class Estacionamento {
         boolean encontrado = false;
 
         ArrayList<RegistroEntrada> removerVeiculos = new ArrayList<>();
+        LocalTime horaSaida = registrarHoraAtual();
 
         for(RegistroEntrada registro : registrosEntrada){
-            if(registro.veiculo.getPlaca().equalsIgnoreCase(placaPesquisa)){
+            if(registro.veiculo.placa().equals(placaPesquisa)){
                 encontrado = true;
                 System.out.println("VEÍCULO ENCONTRADO ");
-                System.out.println("MODELO:            " + registro.veiculo.getModelo());
-                System.out.println("PLACA:             " + registro.veiculo.getPlaca());
-                System.out.println("HORA DE ENTRADA:   " + registro.horaEntrada + "\n");
+                System.out.println("MODELO:            " + registro.veiculo.modelo());
+                System.out.println("PLACA:             " + registro.veiculo.placa());
+                System.out.println("HORA DE ENTRADA:   " + registro.horaEntrada);
+                System.out.println("HORA DE SÁIDA:     " + horaSaida + "\n");
 
                 System.out.print("Deseja remover este véiculo ? [SIM/NÃO]");
                 String removerVeiculo = teclado.nextLine().toUpperCase();
@@ -63,11 +66,9 @@ public class Estacionamento {
                 break;
             }
         }
-
         if(!encontrado){
             System.out.println("VEÍCULO NÃO ENCONTRADO");
         }
-
         for(RegistroEntrada veiculoRemover : removerVeiculos){
             registrosEntrada.remove(veiculoRemover);
         }

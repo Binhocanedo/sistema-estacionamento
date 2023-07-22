@@ -25,8 +25,8 @@ public class Main {
                     System.out.print("PLACA:  ");
                     String placa = teclado.nextLine().toUpperCase();
                     Veiculo veiculo = new Veiculo(modelo, placa);
-                    estacionamento.registrarDeHoraEntrada();
-                    System.out.print("HORA DE ENTRADA: " + estacionamento.registrarDeHoraEntrada());
+                    estacionamento.registrarHoraAtual();
+                    System.out.print("HORA DE ENTRADA: " + estacionamento.registrarHoraAtual());
                     System.out.println("\nVEICULO CADASTRADO COM SUCESSO !!!");
                     estacionamento.registrarEntrada(veiculo);
                     System.out.println("VAGAS DISPONIVEIS: " + estacionamento.vagasDisponiveis());
