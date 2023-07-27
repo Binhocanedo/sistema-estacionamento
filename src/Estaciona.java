@@ -3,16 +3,17 @@
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import static java.lang.System.*;
 
 
 public class Estaciona implements Estacionamento{
     private int   numeroDeVagas = 10;
     private final float valorPorHora = 2.5F;
-    private final ArrayList<RegistroEntrada> registrosEntrada;
+    private final LinkedList<RegistroEntrada> registrosEntrada;
 
 
     public Estaciona(){
-        registrosEntrada = new ArrayList<>();
+        registrosEntrada = new LinkedList<>();
     }
 
 
@@ -31,21 +32,20 @@ public class Estaciona implements Estacionamento{
     }
 
     //estrutura do ArrayList
-        private record RegistroEntrada(Veiculo veiculo, LocalTime horaEntrada) {
-    }
+    private record RegistroEntrada(Veiculo veiculo, LocalTime horaEntrada) {}
     @Override
     public void mostrarVeiculosEstacionados(){
-        System.out.println("   VEÍCULOS ESTACIONADOS   ");
+        out.println("   VEÍCULOS ESTACIONADOS   ");
         for(RegistroEntrada carro : registrosEntrada){
-            System.out.println("MODELO:          " + carro.veiculo.modelo());
-            System.out.println("PLACA:           " + carro.veiculo.placa());
-            System.out.println("HORA DE ENTRADA: " + carro.horaEntrada + "\n");
+            out.println("MODELO:          " + carro.veiculo.modelo());
+            out.println("PLACA:           " + carro.veiculo.placa());
+            out.println("HORA DE ENTRADA: " + carro.horaEntrada + "\n");
         }
     }
     @Override
     public void removerVeiculo(){
-        Scanner teclado = new Scanner(System.in);
-        System.out.print("Digite a placa do veículo: ");
+        Scanner teclado = new Scanner(in);
+        out.print("Digite a placa do veículo: ");
         String placaPesquisa = teclado.nextLine().toUpperCase();
 
         boolean encontrado = false;
@@ -56,14 +56,14 @@ public class Estaciona implements Estacionamento{
         for(RegistroEntrada registro : registrosEntrada){
             if(registro.veiculo.placa().equals(placaPesquisa)){
                 encontrado = true;
-                System.out.println("VEÍCULO ENCONTRADO ");
-                System.out.println("MODELO:            " + registro.veiculo.modelo());
-                System.out.println("PLACA:             " + registro.veiculo.placa());
-                System.out.println("HORA DE ENTRADA:   " + registro.horaEntrada);
-                System.out.println("HORA DE SÁIDA:     " + horaSaida + "\n");
+                out.println("VEÍCULO ENCONTRADO ");
+                out.println("MODELO:            " + registro.veiculo.modelo());
+                out.println("PLACA:             " + registro.veiculo.placa());
+                out.println("HORA DE ENTRADA:   " + registro.horaEntrada);
+                out.println("HORA DE SÁIDA:     " + horaSaida + "\n");
 
-                System.out.print("Deseja remover este véiculo ? [SIM/NÃO]");
-                String removerVeiculo = teclado.nextLine().toUpperCase();
+                out.print("Deseja remover este véiculo ? [SIM/NÃO]");
+                var removerVeiculo = teclado.nextLine().toUpperCase();
                 if(removerVeiculo.equals("SIM")){
                     removerVeiculos.put(registro.veiculo.placa(), registro);
                 }
@@ -71,13 +71,13 @@ public class Estaciona implements Estacionamento{
             }
         }
         if(!encontrado){
-            System.out.println("VEÍCULO NÃO ENCONTRADO");
+            out.println("VEÍCULO NÃO ENCONTRADO");
         }
-        for(RegistroEntrada veiculoRemover : removerVeiculos.values()){
-            registrosEntrada.remove(veiculoRemover);
+        for(RegistroEntrada i : removerVeiculos.values()){
+            registrosEntrada.remove(i);
         }
         this.numeroDeVagas ++;
-        System.out.println("VEICULO REMOVIDO");
+        out.println("VEICULO REMOVIDO");
     }
     @Override
     public int vagasDisponiveis(){
