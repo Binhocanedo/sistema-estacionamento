@@ -7,12 +7,13 @@ import static java.lang.System.*;
 
 
 public class Estaciona implements Estacionamento{
-    private int   numeroDeVagas = 10;
+    private int   numeroDeVagas;
     private final float valorPorHora = 2.5F;
     private final LinkedList<RegistroEntrada> registrosEntrada;
 
 
     public Estaciona(){
+        this.numeroDeVagas = 10;
         registrosEntrada = new LinkedList<>();
     }
 
