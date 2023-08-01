@@ -1,12 +1,16 @@
-
+package br.com.fabio.estacionamento.gerenciamento;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
-import static java.lang.System.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Scanner;
+
+import static java.lang.System.in;
+import static java.lang.System.out;
 
 
-public class Estaciona implements Estacionamento{
+public class Estaciona implements Estacionamento {
     private int   numeroDeVagas;
     private final float valorPorHora = 2.5F;
     private final LinkedList<RegistroEntrada> registrosEntrada;

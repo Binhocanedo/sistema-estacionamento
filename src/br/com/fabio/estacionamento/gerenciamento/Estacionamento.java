@@ -1,3 +1,5 @@
+package br.com.fabio.estacionamento.gerenciamento;
+
 import java.time.LocalTime;
 
 public interface Estacionamento {
