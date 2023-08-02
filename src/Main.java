@@ -31,18 +31,22 @@ public class Main {
                 opcao = teclado.nextInt();
                 switch (opcao) {
                     case 1 -> {
-                        teclado.nextLine();
-                        System.out.println("   DADOS DO VEÍCULO   ");
-                        System.out.print("MODELO: ");
-                        String modelo = teclado.nextLine().toUpperCase();
-                        System.out.print("PLACA:  ");
-                        String placa = teclado.nextLine().toUpperCase();
-                        Veiculo veiculo = new Veiculo(modelo, placa);
-                        estacionamento.registrarHoraAtual();
-                        System.out.print("HORA DE ENTRADA: " + estacionamento.registrarHoraAtual());
-                        System.out.println("\nVEICULO CADASTRADO COM SUCESSO !!!");
-                        estacionamento.registrarEntrada(veiculo);
-                        System.out.println("VAGAS DISPONIVEIS: " + estacionamento.vagasDisponiveis());
+                        if(estacionamento.vagasDisponiveis() == 0){
+                            System.out.println("ESTACIONAMENTO LOTADO !!!");
+                        }else{
+                            teclado.nextLine();
+                            System.out.println("   DADOS DO VEÍCULO   ");
+                            System.out.print("MODELO: ");
+                            String modelo = teclado.nextLine().toUpperCase();
+                            System.out.print("PLACA:  ");
+                            String placa = teclado.nextLine().toUpperCase();
+                            Veiculo veiculo = new Veiculo(modelo, placa);
+                            estacionamento.registrarHoraAtual();
+                            System.out.print("HORA DE ENTRADA: " + estacionamento.registrarHoraAtual());
+                            estacionamento.registrarEntrada(veiculo);
+                            System.out.println("\nVAGAS DISPONIVEIS: " + estacionamento.vagasDisponiveis());
+                        }
+
                     }
                     case 2 -> estacionamento.mostrarVeiculosEstacionados();
                     case 3 -> estacionamento.removerVeiculo();

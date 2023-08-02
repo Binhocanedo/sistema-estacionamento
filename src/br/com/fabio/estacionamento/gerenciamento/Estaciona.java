@@ -19,7 +19,7 @@ public class Estaciona implements Estacionamento {
 
 
     public Estaciona() {
-        this.numeroDeVagas = 10;
+        this.numeroDeVagas = 3;
         registrosEntrada = new LinkedList<>();
     }
 
@@ -35,6 +35,7 @@ public class Estaciona implements Estacionamento {
             arq = new FileWriter("C:\\Users\\Fábio\\Documents\\veiculos.txt", true);
             PrintWriter gravarArq = new PrintWriter(arq);
             gravarArq.println("-----------------------------\n");
+            gravarArq.print("      VEÍCULOS REGISTRADOS     \n");
             gravarArq.print("Modelo: " + registro.veiculo.modelo()     + '\n');
             gravarArq.print("Placa:  " + registro.veiculo.placa()      + '\n');
             gravarArq.print("Hora de Entrada: " + registro.horaEntrada + '\n');
@@ -71,7 +72,7 @@ public class Estaciona implements Estacionamento {
     @Override
     public void removerVeiculo() {
         Scanner teclado = new Scanner(in);
-        if (numeroDeVagas == 10) {
+        if (numeroDeVagas == 3) {
             out.println("NÃO HÁ CARROS ESTACIONADOS");
         } else {
             out.print("Digite a placa do veículo: ");
@@ -113,7 +114,7 @@ public class Estaciona implements Estacionamento {
     }
 
     public void verificarSeTemCarrosEstacionado() {
-        if (numeroDeVagas == 10) {
+        if (this.numeroDeVagas == 3) {
             out.println("NÃO HÁ CARROS ESTACIONADOS");
         }
     }
