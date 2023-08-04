@@ -19,7 +19,7 @@ public class Estaciona implements Estacionamento {
 
 
     public Estaciona() {
-        this.numeroDeVagas = 3;
+        this.numeroDeVagas = 10;
         registrosEntrada = new LinkedList<>();
     }
 
@@ -72,7 +72,7 @@ public class Estaciona implements Estacionamento {
     @Override
     public void removerVeiculo() {
         Scanner teclado = new Scanner(in);
-        if (numeroDeVagas == 3) {
+        if (numeroDeVagas == 10) {
             out.println("NÃO HÁ CARROS ESTACIONADOS");
         } else {
             out.print("Digite a placa do veículo: ");
@@ -114,7 +114,7 @@ public class Estaciona implements Estacionamento {
     }
 
     public void verificarSeTemCarrosEstacionado() {
-        if (this.numeroDeVagas == 3) {
+        if (this.numeroDeVagas == 10) {
             out.println("NÃO HÁ CARROS ESTACIONADOS");
         }
     }
