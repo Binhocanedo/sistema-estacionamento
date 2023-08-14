@@ -30,7 +30,7 @@ public class Estaciona implements Estacionamento {
         RegistroEntrada registro = new RegistroEntrada(veiculo, horaEntrada);
         registrosEntrada.add(registro);
 
-        FileWriter arq = null;
+        FileWriter arq;
         try {
             arq = new FileWriter("C:\\Users\\Fábio\\Documents\\veiculos.txt", true);
             PrintWriter gravarArq = new PrintWriter(arq);
