@@ -2,6 +2,8 @@ package br.com.fabio.estacionamento.gerenciamento;
 
 
 
+import br.com.fabio.estacionamento.valores.CalcularValores;
+
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -53,7 +55,7 @@ public class Estaciona implements Estacionamento {
     }
 
     //estrutura do ArrayList
-    private record RegistroEntrada(Veiculo veiculo, LocalTime horaEntrada) {
+    public record RegistroEntrada(Veiculo veiculo, LocalTime horaEntrada) {
     }
 
     @Override
@@ -82,6 +84,8 @@ public class Estaciona implements Estacionamento {
             HashMap<String, RegistroEntrada> removerVeiculos = new HashMap<>();
             LocalTime horaSaida = registrarHoraAtual();
 
+            CalcularValores calcularValores = new CalcularValores();
+
             for (RegistroEntrada registro : registrosEntrada) {
                 if (registro.veiculo.placa().equals(placaPesquisa)) {
 
@@ -89,7 +93,8 @@ public class Estaciona implements Estacionamento {
                     out.println("MODELO:            " + registro.veiculo.modelo());
                     out.println("PLACA:             " + registro.veiculo.placa());
                     out.println("HORA DE ENTRADA:   " + registro.horaEntrada);
-                    out.println("HORA DE SÁIDA:     " + horaSaida + "\n");
+                    out.println("HORA DE SÁIDA:     " + horaSaida);
+                    out.println("TOTAL A PAGAR R$: " + calcularValores.calcularValor(registro, horaSaida ) + "\n");
 
                     out.print("Deseja remover este véiculo ? [SIM/NÃO]");
                     var removerVeiculo = teclado.nextLine().toUpperCase();
@@ -103,7 +108,11 @@ public class Estaciona implements Estacionamento {
                 registrosEntrada.remove(i);
             }
             this.numeroDeVagas++;
-            out.println("VEICULO REMOVIDO");
+            if(removerVeiculos.equals("SIM")){
+                out.println("VEÍCULO REMOVIDO");
+            }else{
+                out.println("VEÍCULO NÃO FOI REMOVIDO");
+            }
         }
 
     }

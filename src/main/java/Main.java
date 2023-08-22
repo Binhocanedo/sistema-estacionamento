@@ -57,7 +57,5 @@ public class Main {
             System.out.print("ERRO: " + e.getMessage());
             System.out.println("Por favor, reinicie o sistema");
         }
-
-
     }
 }
