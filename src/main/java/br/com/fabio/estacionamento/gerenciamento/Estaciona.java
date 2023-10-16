@@ -25,11 +25,27 @@ public class Estaciona implements Estacionamento {
         registrosEntrada = new LinkedList<>();
     }
 
-
+    public void adicionarVeiculo(){
+        Scanner teclado = new Scanner(System.in);
+        if(vagasDisponiveis() == 0){
+            out.println("ESTACIONAMENTO LOTADO !!!");
+        }else{
+            out.println("   DADOS DO VEÍCULO   ");
+            out.print("MODELO: ");
+            String modelo = teclado.nextLine().toUpperCase();
+            out.print("PLACA: ");
+            String placa = teclado.nextLine().toUpperCase();
+            Veiculo veiculo = new Veiculo(modelo, placa);
+            out.print("HORA DE ENTRADA: " + registrarHoraAtual());
+            registrarEntrada(veiculo);
+            out.print("\nVAGAS DISPONIVEIS: " + vagasDisponiveis());
+        }
+    }
     @Override
     public void registrarEntrada(Veiculo veiculo) {
         LocalTime horaEntrada = registrarHoraAtual();
         RegistroEntrada registro = new RegistroEntrada(veiculo, horaEntrada);
+
         registrosEntrada.add(registro);
 
         FileWriter arq;
@@ -37,7 +53,7 @@ public class Estaciona implements Estacionamento {
             arq = new FileWriter("C:\\Users\\Fábio\\Documents\\veiculos.txt", true);
             PrintWriter gravarArq = new PrintWriter(arq);
             gravarArq.println("-----------------------------\n");
-            gravarArq.print("      VEÍCULOS REGISTRADOS     \n");
+            gravarArq.print("      VEÍCULOS REGISTRADO     \n");
             gravarArq.print("Modelo: " + registro.veiculo.modelo()     + '\n');
             gravarArq.print("Placa:  " + registro.veiculo.placa()      + '\n');
             gravarArq.print("Hora de Entrada: " + registro.horaEntrada + '\n');
@@ -85,6 +101,7 @@ public class Estaciona implements Estacionamento {
             LocalTime horaSaida = registrarHoraAtual();
 
             CalcularValores calcularValores = new CalcularValores();
+            var removerVeiculo = "";
 
             for (RegistroEntrada registro : registrosEntrada) {
                 if (registro.veiculo.placa().equals(placaPesquisa)) {
@@ -97,7 +114,7 @@ public class Estaciona implements Estacionamento {
                     out.println("TOTAL A PAGAR R$: " + calcularValores.calcularValor(registro, horaSaida ) + "\n");
 
                     out.print("Deseja remover este véiculo ? [SIM/NÃO]");
-                    var removerVeiculo = teclado.nextLine().toUpperCase();
+                    removerVeiculo = teclado.nextLine().toUpperCase();
                     if (removerVeiculo.equals("SIM")) {
                         removerVeiculos.put(registro.veiculo.placa(), registro);
                     }
@@ -108,13 +125,13 @@ public class Estaciona implements Estacionamento {
                 registrosEntrada.remove(i);
             }
             this.numeroDeVagas++;
-            if(removerVeiculos.equals("SIM")){
+            if(removerVeiculo.equalsIgnoreCase("SIM")){
                 out.println("VEÍCULO REMOVIDO");
             }else{
+                out.print(removerVeiculo);
                 out.println("VEÍCULO NÃO FOI REMOVIDO");
             }
         }
-
     }
 
     @Override

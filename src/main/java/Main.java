@@ -1,9 +1,7 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
-
 import br.com.fabio.estacionamento.gerenciamento.Estaciona;
-import br.com.fabio.estacionamento.gerenciamento.Veiculo;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -19,7 +17,6 @@ public class Main {
                 4 - SAIR
                 OPÇÃO:""";
 
-
         try {
             do {
                 System.out.print(menu);
@@ -30,24 +27,7 @@ public class Main {
                 }
                 opcao = teclado.nextInt();
                 switch (opcao) {
-                    case 1 -> {
-                        if(estacionamento.vagasDisponiveis() == 0){
-                            System.out.println("ESTACIONAMENTO LOTADO !!!");
-                        }else{
-                            teclado.nextLine();
-                            System.out.println("   DADOS DO VEÍCULO   ");
-                            System.out.print("MODELO: ");
-                            String modelo = teclado.nextLine().toUpperCase();
-                            System.out.print("PLACA:  ");
-                            String placa = teclado.nextLine().toUpperCase();
-                            Veiculo veiculo = new Veiculo(modelo, placa);
-                            estacionamento.registrarHoraAtual();
-                            System.out.print("HORA DE ENTRADA: " + estacionamento.registrarHoraAtual());
-                            estacionamento.registrarEntrada(veiculo);
-                            System.out.println("\nVAGAS DISPONIVEIS: " + estacionamento.vagasDisponiveis());
-                        }
-
-                    }
+                    case 1 -> estacionamento.adicionarVeiculo();
                     case 2 -> estacionamento.mostrarVeiculosEstacionados();
                     case 3 -> estacionamento.removerVeiculo();
                     case 4 -> System.out.println("OBRIGADO POR USAR NOSSO SOFTWARE...");

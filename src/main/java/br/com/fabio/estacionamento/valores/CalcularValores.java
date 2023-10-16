@@ -1,10 +1,6 @@
 package br.com.fabio.estacionamento.valores;
-
-
 import br.com.fabio.estacionamento.gerenciamento.Estaciona;
-
 import java.time.LocalTime;
-
 public class CalcularValores{
     public double calcularValor(Estaciona.RegistroEntrada registroEntrada, LocalTime horaSaida) {
 
