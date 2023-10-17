@@ -14,7 +14,8 @@ public class Main {
                 \n1 - CADASTRAR VEÍCULO
                 2 - VEÍCULOS ESTACIONADOS
                 3 - SAÍDA DE VEÍCULO
-                4 - SAIR
+                4 - CRIAR RELATORIO DIARIO
+                5 - SAIR
                 OPÇÃO:""";
 
         try {
@@ -30,9 +31,10 @@ public class Main {
                     case 1 -> estacionamento.adicionarVeiculo();
                     case 2 -> estacionamento.mostrarVeiculosEstacionados();
                     case 3 -> estacionamento.removerVeiculo();
-                    case 4 -> System.out.println("OBRIGADO POR USAR NOSSO SOFTWARE...");
+                    case 4 -> estacionamento.criarRelatorio();
+                    case 5 -> System.out.println("OBRIGADO POR USAR NOSSO SOFTWARE...");
                 }
-            } while (opcao != 4);
+            } while (opcao != 5);
         } catch (InputMismatchException e) {
             System.out.print("ERRO: " + e.getMessage());
             System.out.println("Por favor, reinicie o sistema");

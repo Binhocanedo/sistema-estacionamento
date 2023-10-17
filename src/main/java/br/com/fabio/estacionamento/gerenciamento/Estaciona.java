@@ -18,6 +18,8 @@ import static java.lang.System.out;
 public class Estaciona implements Estacionamento {
     private int numeroDeVagas;
     private final LinkedList<RegistroEntrada> registrosEntrada;
+    private double valorTotal;
+    private int numerosDeCarros;
 
 
     public Estaciona() {
@@ -47,21 +49,43 @@ public class Estaciona implements Estacionamento {
         RegistroEntrada registro = new RegistroEntrada(veiculo, horaEntrada);
 
         registrosEntrada.add(registro);
+        numerosDeCarros ++;
+        CalcularValores calcularValores = new CalcularValores();
+        LocalTime horaSaida = registrarHoraAtual();
+
+        double valor = calcularValores.calcularValor(registro, horaSaida);
+        valorTotal += valor;
 
         FileWriter arq;
         try {
-            arq = new FileWriter("C:\\Users\\Fábio\\Documents\\veiculos.txt", true);
+            arq = new FileWriter("C:\\Users\\Fábio\\Documents\\relatorio.txt", true);
             PrintWriter gravarArq = new PrintWriter(arq);
-            gravarArq.println("-----------------------------\n");
+            gravarArq.println("----------------------------\n");
             gravarArq.print("      VEÍCULOS REGISTRADO     \n");
             gravarArq.print("Modelo: " + registro.veiculo.modelo()     + '\n');
             gravarArq.print("Placa:  " + registro.veiculo.placa()      + '\n');
             gravarArq.print("Hora de Entrada: " + registro.horaEntrada + '\n');
+            gravarArq.print("Valor R$: " + calcularValores.calcularValor(registro, horaSaida ) + "\n");
             arq.close();
         } catch (IOException e) {
             out.println("Acesso negado: " + e.getMessage());
         }
         this.numeroDeVagas--;
+    }
+    public void criarRelatorio(){
+        FileWriter arq;
+        try{
+            arq = new FileWriter("C:\\Users\\Fábio\\Documents\\relatorio.txt", true);
+            PrintWriter gravarArq = new PrintWriter(arq);
+            gravarArq.println("-------------------------------\n");
+            gravarArq.print("     RELATÓRIO FINANCEIRO        \n");
+            gravarArq.print("TOTAL DE CARROS ESTACIONADOS: " + numerosDeCarros + '\n');
+            gravarArq.print("VALOR TOTAL DE GANHO:         " + valorTotal + '\n');
+            arq.close();
+        }catch (IOException e) {
+            out.println("Acesso negado: " + e.getMessage());
+        }
+        out.println("RELATORIO CRIADO COM SUCESSO");
     }
 
 
@@ -111,7 +135,7 @@ public class Estaciona implements Estacionamento {
                     out.println("PLACA:             " + registro.veiculo.placa());
                     out.println("HORA DE ENTRADA:   " + registro.horaEntrada);
                     out.println("HORA DE SÁIDA:     " + horaSaida);
-                    out.println("TOTAL A PAGAR R$: " + calcularValores.calcularValor(registro, horaSaida ) + "\n");
+                    out.println("TOTAL A PAGAR R$: " + calcularValores.calcularValor(registro, horaSaida) + "\n");
 
                     out.print("Deseja remover este véiculo ? [SIM/NÃO]");
                     removerVeiculo = teclado.nextLine().toUpperCase();
