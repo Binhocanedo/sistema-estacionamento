@@ -2,11 +2,15 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import br.com.fabio.estacionamento.gerenciamento.Estaciona;
 
+import javax.swing.*;
+
 
 public class Main {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
         Estaciona estacionamento = new Estaciona();
+        new JFrame();
+
 
         int opcao;
 

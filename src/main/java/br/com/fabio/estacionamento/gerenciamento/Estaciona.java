@@ -62,10 +62,10 @@ public class Estaciona implements Estacionamento {
             PrintWriter gravarArq = new PrintWriter(arq);
             gravarArq.println("----------------------------\n");
             gravarArq.print("      VEÍCULOS REGISTRADO     \n");
-            gravarArq.print("Modelo: " + registro.veiculo.modelo()     + '\n');
-            gravarArq.print("Placa:  " + registro.veiculo.placa()      + '\n');
-            gravarArq.print("Hora de Entrada: " + registro.horaEntrada + '\n');
-            gravarArq.print("Valor R$: " + calcularValores.calcularValor(registro, horaSaida ) + "\n");
+            gravarArq.print("MODELO: " + registro.veiculo.modelo()     + '\n');
+            gravarArq.print("PLACA:  " + registro.veiculo.placa()      + '\n');
+            gravarArq.print("HORA DE ENTRADA: " + registro.horaEntrada + '\n');
+            gravarArq.print("VALOR R$: " + calcularValores.calcularValor(registro, horaSaida ) + "\n");
             arq.close();
         } catch (IOException e) {
             out.println("Acesso negado: " + e.getMessage());
@@ -117,9 +117,8 @@ public class Estaciona implements Estacionamento {
         if (numeroDeVagas == 10) {
             out.println("NÃO HÁ CARROS ESTACIONADOS");
         } else {
-            out.print("Digite a placa do veículo: ");
+            out.print("DIGITE A PLACA DO VEÍCULO: ");
             String placaPesquisa = teclado.nextLine().toUpperCase();
-
 
             HashMap<String, RegistroEntrada> removerVeiculos = new HashMap<>();
             LocalTime horaSaida = registrarHoraAtual();
