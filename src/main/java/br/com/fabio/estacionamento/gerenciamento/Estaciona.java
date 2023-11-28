@@ -5,7 +5,6 @@ import br.com.fabio.estacionamento.valores.CalcularValores;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.Scanner;
 import java.io.*;
 
@@ -15,16 +14,13 @@ import static java.lang.System.out;
 
 public class Estaciona implements Estacionamento {
     private int numeroDeVagas;
-    //private final LinkedList<RegistroEntrada> registrosEntrada;
     private final VeiculoLinkedList registroEntrada;
-
     private double valorTotal;
     private int numerosDeCarros;
 
 
     public Estaciona() {
         this.numeroDeVagas = 10;
-        //registrosEntrada = new LinkedList<>();
         registroEntrada = new VeiculoLinkedList();
     }
 
@@ -50,8 +46,11 @@ public class Estaciona implements Estacionamento {
         RegistroEntrada registro = new RegistroEntrada(veiculo, horaEntrada);
 
         registroEntrada.adicionar(registro);
+
         numerosDeCarros ++;
+
         CalcularValores calcularValores = new CalcularValores();
+
         LocalTime horaSaida = registrarHoraAtual();
 
         double valor = calcularValores.calcularValor(registro, horaSaida);
@@ -95,17 +94,14 @@ public class Estaciona implements Estacionamento {
         return LocalTime.parse(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
     }
 
-    //estrutura do ArrayList
-    public record RegistroEntrada(Veiculo veiculo, LocalTime horaEntrada) {
-    }
+    //classe que pega as informações do veiculo e a hora de entrada
+    public record RegistroEntrada(Veiculo veiculo, LocalTime horaEntrada) {}
 
     @Override
     public void mostrarVeiculosEstacionados() {
         out.println("   VEÍCULOS ESTACIONADOS   ");
         verificarSeTemCarrosEstacionado();
         registroEntrada.exibir();
-
-
     }
 
     @Override
@@ -120,7 +116,7 @@ public class Estaciona implements Estacionamento {
             RegistroEntrada registro = registroEntrada.pesquisarPorPlaca(placaPesquisa);
 
             if(registro != null){
-                out.println("VEÍCULO ENCONTRADO ");
+                out.println("   VEÍCULO ENCONTRADO   ");
                 out.println("MODELO:            " + registro.veiculo.modelo());
                 out.println("PLACA:             " + registro.veiculo.placa());
                 out.println("HORA DE ENTRADA:   " + registro.horaEntrada);
